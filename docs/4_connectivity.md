@@ -1,12 +1,12 @@
 # Adding connectivity
 
-Now that we've built our basic circuit and wrote the code to control that circuit, we can start adding connectivity to the project. Part of the ARM mbed IoT Device Platform is mbed Device Connector, a unified solution to connect devices to the internet and communicate with them regardless of *how* these devices connect to the internet. There are libraries available for a variety of connectivity methods, including Ethernet, Wi-Fi, 6LoWPAN, Thread and Cellular.
+Now that we've built our basic circuit and written the code to control that circuit, we can start adding connectivity to the project. Part of the ARM mbed IoT Device Platform is mbed Device Connector, a unified solution to connect devices to the internet and communicate with them regardless of *how* these devices connect to the internet. There are libraries available for a variety of connectivity methods, including Ethernet, Wi-Fi, 6LoWPAN, Thread and Cellular.
 
 ## Obtaining a device certificate
 
-All data that goes from the device to mbed Device Connector (and vice-versa) is end-to-end encrypted by [mbed TLS](https://tls.mbed.org). To set up secure communications we need a security certificate. We can get one from the mbed Device Connector website:
+[mbed TLS](https://tls.mbed.org) uses end-to-end encryption to encrypts all data that goes from the device to mbed Device Connector (and from mbed Device Connector to the device). To set up secure communications, we need a security certificate. We can get one from the mbed Device Connector website:
 
-1. Go to the [mbed Device Connector homepage](https://connector.mbed.com) and click *Sign in to get connected*.
+1. Go to the [mbed Device Connector homepage](https://connector.mbed.com), and click *Sign in to get connected*.
 1. If prompted for your login credentials, use your mbed developer account (the same account you use to log into the mbed Online Compiler).
 1. Go to *My Devices* > *Security Credentials*.
 1. Click *Get my security credentials*.
@@ -14,8 +14,8 @@ All data that goes from the device to mbed Device Connector (and vice-versa) is 
 
     <span class="images">![The certificate is located in the gray box](assets/lights16.png)</span>
 
-1. Go back to the online compiler.
-1. Create a new file ``security.h`` in your application's ``source`` directory. 
+1. Go back to the Online Compiler.
+1. Create a new file `security.h` in your application's `source` directory. 
 1. Paste the certificate into this file.
 
 ## Adding connectivity to the board
@@ -26,31 +26,31 @@ If you have a development board that connects over Ethernet, just plug in an Eth
 
 ### ESP8266 Wi-Fi module
 
-To wire the ESP8266 module up to your development board, look at the [ESP8266 Cookbook page](https://developer.mbed.org/users/4180_1/notebook/using-the-esp8266-with-the-mbed-lpc1768/). Broadly, this means hooking up the ESP8266's TX pin to `D0` and RX pin to `D1`.
+To wire the ESP8266 module to your development board, look at the [ESP8266 Cookbook page](https://developer.mbed.org/users/4180_1/notebook/using-the-esp8266-with-the-mbed-lpc1768/). In general, this means hooking up the ESP8266's TX pin to `D0` and RX pin to `D1`.
 
-<span class="notes">**Note about ESP8266 on NUCLEO boards:** On the NUCLEO boards pins `D0` and `D1` are used for serial communication with the computer. Use pins `D8` and `D2` instead.</span>
+<span class="notes">**Note about ESP8266 on NUCLEO boards:** On the NUCLEO boards, pins `D0` and `D1` are used for serial communication with the computer. Use pins `D8` ( to ESP8266 TX) and `D2` (to ESP8266 RX) instead.</span>
 
 ### 6LoWPAN
 
-First connect your 6LoWPAN gateway to an IPv6-enabled network by following the steps under 'Gateway Configuration' on [this page](https://github.com/ARMmbed/mbed-client-example-6lowpan#gateway-configuration). 
+First, connect your 6LoWPAN gateway to an IPv6-enabled network by following the steps under 'Gateway Configuration' on [this page](https://github.com/ARMmbed/mbed-client-example-6lowpan#gateway-configuration). 
 
-Then attach the 6LoWPAN shield to the top of your development board.
+Then, attach the 6LoWPAN shield to the top of your development board.
 
-## Adding libraries with the online compiler
+## Adding libraries with the Online Compiler
 
-For the device and mbed Device Connector to talk we need the [mbed Client library](https://docs.mbed.com/docs/mbed-client-guide/en/latest/). This library is already included in mbed OS, and is very powerful, but can also be daunting for new users. In this example we'll use an additional library built on top of mbed Client: SimpleClient. This library is designed to easily expose variables and resources to the cloud.
+For the device and mbed Device Connector to talk, we need the [mbed Client library](https://docs.mbed.com/docs/mbed-client-guide/en/latest/). mbed OS already includes this library, which is powerful but can also be daunting for new users. In this example, we'll use an additional library built on top of mbed Client: SimpleClient. This library is designed to easily expose variables and resources to the cloud.
 
 We will also use [EasyConnect](https://github.com/ARMmbed/easy-connect) to handle connectivity.
 
 To add these libraries to your project:
 
-1. Go back to the online compiler.
-1. Right click on your program in the tree and select *Import Library* > *From URL*.
-1. Under *Source URL* enter: ``https://github.com/armmbed/easy-connect``.
+1. Go back to the Online Compiler.
+1. Right click on your program in the tree, and select *Import Library* > *From URL*.
+1. Under *Source URL*, enter: `https://github.com/armmbed/easy-connect`.
 1. Do **not** tick 'Update all sub-libraries to the latest version'.
 1. Click *Import*.
-1. Again, right click on your program and select *Import Library* > *From URL*.
-1. Under *Source URL* enter: ``https://developer.mbed.org/teams/sandbox/code/simple-mbed-client/``.
+1. Again, right click on your program, and select *Import Library* > *From URL*.
+1. Under *Source URL*, enter: `https://developer.mbed.org/teams/sandbox/code/simple-mbed-client/`.
 1. Click *Import*.
 
 ## Adding libraries with mbed CLI
@@ -64,7 +64,7 @@ $ mbed add http://developer.mbed.org/teams/sandbox/code/simple-mbed-client/
 
 ## Updating configuration
 
-We need to tell EasyConnect which connectivity method to use. Open ``mbed_app.json`` and locate the `network-interface` field. Change the `value` to the connectivity method used:
+We need to tell EasyConnect which connectivity method to use. Open `mbed_app.json`, and locate the `network-interface` field. Change the `value` to the connectivity method used:
 
 ```json
 /* mbed_app.json */
@@ -99,16 +99,16 @@ We need to tell EasyConnect which connectivity method to use. Open ``mbed_app.js
 
 If you:
 
-* Are using Wi-Fi: also set your Wi-Fi SSID and your password. 
-* Used pins other than `D0`/`D1`: also change the pin names.
+* Are using Wi-Fi: Also set your Wi-Fi SSID and your password. 
+* Used pins other than `D0`/`D1`: Also change the pin names.
 
 ## Writing code
 
 ### Setting up a connection
 
-We need to add some code to the application so it connects to the internet and sets up a connection to mbed Device Connector.
+We need to add some code to the application, so it connects to the internet and sets up a connection to mbed Device Connector.
 
-Replace ``main.cpp`` with:
+Replace `main.cpp` with:
 
 ```cpp
 #include "mbed.h"
@@ -179,7 +179,7 @@ int main(int, char**) {
 
 ### Program logic
 
-The code sample above does not do much, except for setting up the connection. We can now define some logic for this program:
+The code sample above does not do much except for setting up the connection. We can now define some logic for this program:
 
 1. The color of the LED should be configurable.
 1. The period between the moment of motion detection to the moment lights go out should be configurable.
@@ -197,7 +197,7 @@ Let's define a resource for each of our actions:
 
 We can use SimpleClient to define these resources and attach actions to each resource.
 
-Replace the following section in ``main.cpp``:
+Replace the following section in `main.cpp`:
 
 ```cpp
 // YOUR CODE HERE
@@ -298,9 +298,9 @@ void pir_rise() {
 }
 ```
 
-When you compile and flash this program, you'll see that when you wave your hand in front of the PIR sensor the color of the LED changes to green, and the LED always goes off after 5 seconds.
+When you compile and flash this program, you see that when you wave your hand in front of the PIR sensor, the color of the LED changes to green, and the LED always goes off after 5 seconds.
 
-When the connection to mbed Device Connector is created, the onboard LED will blink faster. We can now control this device from the cloud.
+When the connection to mbed Device Connector is created, the onboard LED blinks faster. We can now control this device from the cloud.
 
 <span class="notes">**Note:** No connection? [Inspect the logs on the device](https://developer.mbed.org/handbook/SerialPC#host-interface-and-terminal-applications).</span>
 
