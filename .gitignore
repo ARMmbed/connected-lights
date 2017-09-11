@@ -3,5 +3,9 @@ node_modules/
 BUILD/
 .vscode/
 tags
+ChainableLED/
+mbed-os/
+simple-mbed-client/
+easy-connect/
 
 
