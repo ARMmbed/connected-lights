@@ -15,7 +15,7 @@ Now that we've built our basic circuit and written the code to control that circ
     <span class="images">![The certificate is located in the gray box](assets/lights16.png)</span>
 
 1. Go back to the Online Compiler.
-1. Create a new file `security.h` in your application's `source` directory. 
+1. Create a new file `security.h` in your application's `source` directory.
 1. Paste the certificate into this file.
 
 ## Adding connectivity to the board
@@ -32,35 +32,17 @@ To wire the ESP8266 module to your development board, look at the [ESP8266 Cookb
 
 ### 6LoWPAN
 
-First, connect your 6LoWPAN gateway to an IPv6-enabled network by following the steps under 'Gateway Configuration' on [this page](https://github.com/ARMmbed/mbed-client-example-6lowpan#gateway-configuration). 
+First, connect your 6LoWPAN gateway to an IPv6-enabled network by following the steps under 'Gateway Configuration' on [this page](https://github.com/ARMmbed/mbed-client-example-6lowpan#gateway-configuration).
 
 Then, attach the 6LoWPAN shield to the top of your development board.
 
-## Adding libraries with the Online Compiler
+## Extra libraries
 
 For the device and mbed Device Connector to talk, we need the [mbed Client library](https://docs.mbed.com/docs/mbed-client-guide/en/latest/). mbed OS already includes this library, which is powerful but can also be daunting for new users. In this example, we'll use an additional library built on top of mbed Client: SimpleClient. This library is designed to easily expose variables and resources to the cloud.
 
 We will also use [EasyConnect](https://github.com/ARMmbed/easy-connect) to handle connectivity.
 
-To add these libraries to your project:
-
-1. Go back to the Online Compiler.
-1. Right click on your program in the tree, and select *Import Library* > *From URL*.
-1. Under *Source URL*, enter: `https://github.com/armmbed/easy-connect`.
-1. Do **not** tick 'Update all sub-libraries to the latest version'.
-1. Click *Import*.
-1. Again, right click on your program, and select *Import Library* > *From URL*.
-1. Under *Source URL*, enter: `https://developer.mbed.org/teams/sandbox/code/simple-mbed-client/`.
-1. Click *Import*.
-
-## Adding libraries with mbed CLI
-
-If you are using mbed CLI, run the following commands to add the libraries:
-
-```bash
-$ mbed add easy-connect
-$ mbed add http://developer.mbed.org/teams/sandbox/code/simple-mbed-client/
-```
+These libraries are already added to the project (see the `.lib` files in the project directory).
 
 ## Updating configuration
 
@@ -99,7 +81,7 @@ We need to tell EasyConnect which connectivity method to use. Open `mbed_app.jso
 
 If you:
 
-* Are using Wi-Fi: Also set your Wi-Fi SSID and your password. 
+* Are using Wi-Fi: Also set your Wi-Fi SSID and your password.
 * Used pins other than `D0`/`D1`: Also change the pin names.
 
 ## Writing code
